@@ -29,13 +29,13 @@ public class ClientController {
     public ResponseEntity<List<Client>> read() {
         final List<Client> clients = clientService.readAll();
 
-        return clients != null &&  !clients.isEmpty()
+        return clients != null && !clients.isEmpty()
                 ? new ResponseEntity<>(clients, HttpStatus.OK)
                 : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @GetMapping(value = "/clients/{id}")
-    public ResponseEntity<Client> read(@PathVariable(name = "id") int id) {
+    public ResponseEntity<?> read(@PathVariable(name = "id") int id) {
         final Client client = clientService.read(id);
 
         return client != null
@@ -49,7 +49,7 @@ public class ClientController {
 
         return updated
                 ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @DeleteMapping(value = "/clients/{id}")
@@ -58,6 +58,6 @@ public class ClientController {
 
         return deleted
                 ? new ResponseEntity<>(HttpStatus.OK)
-                : new ResponseEntity<>(HttpStatus.NOT_MODIFIED);
+                : new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 }
